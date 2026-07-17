@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Atlas - Interactif</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">🌐 World Atlas</div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <h1>Recherche de Pays</h1>
+            <form id="search-form" novalidate>
+                <div class="input-group">
+                    <input type="text" id="country-input" placeholder="Entrez le nom d'un pays (ex: Haiti)..." autocomplete="off">
+                    <button type="submit">Rechercher</button>
+                </div>
+                <!-- Mesaj erè pou aksesibilite ap parèt la -->
+                <p id="error-message" class="error-msg" role="alert"></p>
+            </form>
+        </section>
+
+        <!-- Seksyon Chajman (Spinner) -->
+        <div id="loading-spinner" class="spinner hidden">
+            <div class="loader"></div>
+            <p>Chargement des données...</p>
+        </div>
+
+        <!-- Ka kote enfòmasyon peyi a ap parèt -->
+        <section id="result-section" class="result-section hidden">
+            <div class="card">
+                <div class="flag-container">
+                    <img id="country-flag" src="" alt="">
+                </div>
+                <div class="info-container">
+                    <h2 id="country-name"></h2>
+                    <hr>
+                    <p><strong>🏛️ Capitale :</strong> <span id="country-capital"></span></p>
+                    <p><strong>👥 Population :</strong> <span id="country-population"></span></p>
+                    <p><strong>🌍 Région :</strong> <span id="country-region"></span></p>
+                    <p><strong>💵 Monnaie :</strong> <span id="country-currency"></span></p>
+                    <p><strong>🗣️ Langues :</strong> <span id="country-languages"></span></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ISTEAH - Cours LOG3500</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
