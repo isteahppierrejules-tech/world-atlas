@@ -46,15 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             displayCountry(data[0]); // Nou pran premye peyi ki koresponn lan
-
-        } catch (error) {
-            if (error.message.includes("fetch")) {
-                errorMsg.textContent = "Connexion impossible. Veuillez vérifier votre accès à internet.";
-            } else {
+} catch (error) {
+            // Si se yon erè nou menm nou voye pou orthographe
+            if (error.message.includes("Aucun résultat")) {
                 errorMsg.textContent = error.message;
+            } else {
+                // Pou lòt erè yo, l ap afiche mesaj reyèl la pou n wè sa k pase
+                errorMsg.textContent = "Erreur de chargement: " + error.message;
             }
-        } finally {
-            // Toujou kache spinner a lè n fini
             spinner.classList.add('hidden');
         }
     });
