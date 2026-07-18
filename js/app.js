@@ -46,14 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             displayCountry(data[0]); // Nou pran premye peyi ki koresponn lan
-} catch (error) {
-            // Si se yon erè nou menm nou voye pou orthographe
+
+        } catch (error) {
+            // Nou ranje pati sa a pou l pa di "Connexion impossible" pou anyen
             if (error.message.includes("Aucun résultat")) {
                 errorMsg.textContent = error.message;
             } else {
-                // Pou lòt erè yo, l ap afiche mesaj reyèl la pou n wè sa k pase
-                errorMsg.textContent = "Erreur de chargement: " + error.message;
+                errorMsg.textContent = "Erreur: " + error.message;
             }
+        } finally {
+            // Toujou kache spinner a lè n fini
             spinner.classList.add('hidden');
         }
     });
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const countryName = country.name?.common || "N/A";
         nameTxt.textContent = countryName;
         
-        // KOREKSYON LA : N ap ranpli de liy yo kòrèkteman selon HTML la
+        // Ranpli de liy yo kòrèkteman selon HTML la
         capitalTxt.textContent = countryName; 
         subCapitalTxt.textContent = country.capital ? country.capital[0] : "N/A"; 
         
