@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(query)}`);
             
             if (!response.ok) {
-                // Si API a voye yon erè (pa egzanp 404 peyi a pa egziste)
                 throw new Error("Aucun résultat trouvé pour cette recherche. Veuillez vérifier l'orthographe.");
             }
 
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
             displayCountry(data[0]); // Nou pran premye peyi ki koresponn lan
 
         } catch (error) {
-            // Jesyon erè rezo oswa lòt erè
             if (error.message.includes("fetch")) {
                 errorMsg.textContent = "Connexion impossible. Veuillez vérifier votre accès à internet.";
             } else {
@@ -61,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Fonksyon pou netwaye erè yo lè moun nan ap tape
     input.addEventListener('input', resetError);
 
     function resetError() {
@@ -70,28 +67,31 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMsg.textContent = '';
     }
 
-    // 3. Enjeksyon done yo (Sekirize ak textContent pou evite vòl done / XSS)
+    // 3. Enjeksyon done yo (Sekirize ak textContent pou evite XSS)
     function displayCountry(country) {
-        // Non ak Kapital yo
         const countryName = country.name?.common || "N/A";
         nameTxt.textContent = countryName;
         
-        const capitalName = country.capital ? country.capital[0] : "N/A";
-        capitalTxt.textContent = countryName; // Pou premye liy lan (Name)
-        subCapitalTxt.textContent = capitalName; // Pou dezyèm liy lan (Capital)
+        // KOREKSYON LA : N ap ranpli de liy yo kòrèkteman selon HTML la
+        capitalTxt.textContent = countryName; 
+        subCapitalTxt.textContent = country.capital ? country.capital[0] : "N/A"; 
         
-        // Fòma popilasyon ak espas dous (ex: 11 500 000)
+        // Fòma popilasyon ak espas pwòp (ex: 11 500 000)
         const population = country.population;
-        popTxt.textContent = population ? population.toLocaleString('fr-FR') : "N/A";
+        if (population) {
+            let formattedPop = population.toLocaleString('fr-FR');
+            popTxt.textContent = formattedPop.replace(/[\u202f\u00a0]/g, ' ');
+        } else {
+            popTxt.textContent = "N/A";
+        }
         
-        // Rejyon
         regionTxt.textContent = country.region || "N/A";
 
         // Drapo ak deskripsyon alt li pou aksesibilite
         flagImg.src = country.flags?.svg || "";
         flagImg.alt = country.flags?.alt || `Drapeau de ${countryName}`;
 
-        // Ekstrè Monnen (Currencies)
+        // Ekstrè Monnen
         if (country.currencies) {
             const currencyKey = Object.keys(country.currencies)[0];
             const currencyName = country.currencies[currencyKey].name;
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currencyTxt.textContent = "N/A";
         }
 
-        // Ekstrè Lang (Languages)
+        // Ekstrè Lang
         if (country.languages) {
             const langList = Object.values(country.languages).join(', ');
             languagesTxt.textContent = langList;
