@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
             displayCountry(data[0]); // Nou pran premye peyi ki koresponn lan
 
         } catch (error) {
-            // Nou ranje pati sa a pou l pa di "Connexion impossible" pou anyen
             if (error.message.includes("Aucun résultat")) {
                 errorMsg.textContent = error.message;
             } else {
