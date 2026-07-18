@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Eleman pou montre done yo nan kat la
     const flagImg = document.getElementById('country-flag');
     const nameTxt = document.getElementById('country-name');
-    const capitalTxt = document.getElementById('country-capital');
     const subCapitalTxt = document.getElementById('sub-capital');
     const popTxt = document.getElementById('country-population');
     const regionTxt = document.getElementById('country-region');
@@ -72,8 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const countryName = country.name?.common || "N/A";
         nameTxt.textContent = countryName;
         
-        // Ranpli de liy yo kòrèkteman selon HTML la
-        capitalTxt.textContent = countryName; 
+        // KOREKSYON AN SE LA: Nou ranpli sèlman sa ki egziste nan HTML la!
         subCapitalTxt.textContent = country.capital ? country.capital[0] : "N/A"; 
         
         // Fòma popilasyon ak espas pwòp (ex: 11 500 000)
